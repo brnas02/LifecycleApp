@@ -14,6 +14,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         lifecycleLog = findViewById(R.id.lifecycleLog)
+
+        // Restore saved logs if available
+        savedInstanceState?.getString("logs")?.let {
+            lifecycleLog.text = it
+        }
+
         logLifecycleEvent("onCreate")
     }
 
@@ -42,11 +48,19 @@ class MainActivity : AppCompatActivity() {
         logLifecycleEvent("onDestroy")
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Save the current lifecycle logs
+        outState.putString("logs", lifecycleLog.text.toString())
+    }
+
     private fun logLifecycleEvent(eventName: String) {
-        val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-        val logMessage = "$eventName at $timestamp\n"
+        val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+        val date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        val logMessage = "$eventName at $time on $date\n"
 
         // Append the log message to the TextView
         lifecycleLog.append(logMessage)
     }
 }
+
