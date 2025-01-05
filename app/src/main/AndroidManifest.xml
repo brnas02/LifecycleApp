@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Application tag defines app-wide properties -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifecycleApp"
         tools:targetApi="31">
+
+        <!-- Main Activity configuration -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
